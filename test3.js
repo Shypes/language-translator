@@ -5,47 +5,31 @@ const LangParser = new Language();
 
 LangParser.setBaseDir(__dirname);
 
-sendSuccessResponse = async (res, content, message) => {
+testTranslate = async (language, message) => {
 
-    await LangParser.init(res.language)
+   await LangParser.init(language)
 
-    translated =  LangParser.gettext(message)
+   translated =  LangParser.gettext(message)
 
-    let data = {
-        success: true,
-        message: translated,
-        data: content
-    };
+   let data = {
+      language,
+      message: translated,
+   };
 
     console.log(data)
-
-    return data
-    // res.status(200).json(data);
 };
 
 
-res = {
-    'language': 'ar'
-}
-
-data = sendSuccessResponse(res , {}, 'email_phone_validation')
-
+data = testTranslate('ar' , 'success')
 
 setTimeout(function(){
 
-    data = sendSuccessResponse(res , {}, 'something_went_wrong')
+   testTranslate('ar' , 'something_went_wrong')
 
-    data = sendSuccessResponse(res , {}, 'something_went_wrong')
+   testTranslate('ar' , 'missing_required_validation')
 
+   testTranslate('ar' , 'email_phone_validation')
 
-    data = sendSuccessResponse(res , {}, 'missing_required_validation')
-
-
-    data = sendSuccessResponse(res , {}, 'something_went_wrong')
-
-
-    data = sendSuccessResponse(res , {}, 'something_went_wrong')
-
-}, 500)
+}, 1000)
 
 
