@@ -41,7 +41,7 @@ class Language {
         this.langPath = path.join(this.__basedir, this.langFolder);
     }
 
-    setDefailtLang(language){
+    setDefaultLang(language){
         this.default_lang = language;
         this.loaded = false;
         this.defaultLangData = {};

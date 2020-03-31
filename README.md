@@ -32,13 +32,15 @@ Optional Method
 
 ```
 
-LangParser.setLang("en");
+LangParser.setActiveLang("en");
 
 LangParser.setBaseDir("./");
 
 LangParser.setLanguageDir("src/lang");
 
-LangParser.setDefailtLang("ar");
+LangParser.setDefaultLang("ar");
+
+LangParser.setExtention(".txt");
 
 ```
 
