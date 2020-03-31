@@ -16,11 +16,11 @@ Usage
 ```
 const Language = require('./language');
 
-const Lang = new Language();
+const LangParser = new Language();
 
-Lang.setLang('ar');
+LangParser.setLang('ar');
 
-translated = Lang.translate('email_phone_validation')
+translated = LangParser.translate('email_phone_validation')
 
 translated.then((text) =>{
    console.log(text);
@@ -32,9 +32,15 @@ Optional Method
 
 ```
 
-Lang.setBaseDir("./");
+LangParser.setLang("en");
 
-Lang.setLanguageDir("src/lang");
+LangParser.setBaseDir("./");
+
+LangParser.setLanguageDir("src/lang");
+
+LangParser.setDefailtLang("ar");
+
+
 
 ```
 
