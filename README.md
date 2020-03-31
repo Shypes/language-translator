@@ -67,11 +67,11 @@ Sample Language file en.json
 ```
 
 
-It also contains a simple test.js file
+It also contains a simple files of different approach
 
 ```
-node test.js
-
-
 node test1.js
+node test2.js
+node test3.js
+node test4.js
 ```
