@@ -1,15 +1,15 @@
 
 const Language = require('./language');
 
-const LangParse = new Language();
+const LangParser = new Language();
 
-LangParse.setBaseDir(__dirname);
+LangParser.setBaseDir(__dirname);
 
 sendSuccessResponse = async (res, content, message) => {
 
-    LangParse.setLang(res.language)
+    LangParser.setLang(res.language)
 
-    translated =  await LangParse.translate(message)
+    translated =  await LangParser.translate(message)
 
     let data = {
         success: true,

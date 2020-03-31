@@ -2,13 +2,13 @@ global.__basedir = __dirname;
 
 const Language = require('./language');
 
-const LangParse = new Language();
+const LangParser = new Language();
 
-LangParse.setLang('ar');
+LangParser.setLang('ar');
 
-LangParse.setBaseDir("./");
+LangParser.setBaseDir("./");
 
-translated = LangParse.translate('email_phone_validation')
+translated = LangParser.translate('email_phone_validation')
 
 translated.then((text) =>{
    console.log(text);
