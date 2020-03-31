@@ -17,6 +17,46 @@ class Language {
         this.setPath();
     }
 
+    setLang(language){
+        this.lang = language;
+    }
+
+    setBaseDir(directory){
+        this.__basedir = directory;
+        this.setPath();
+    }
+
+    setLanguageDir(directory){
+        this.langFolder = directory;
+        this.setPath();
+    }
+
+    setPath(){
+        this.langPath = path.join(this.__basedir, this.langFolder);
+    }
+
+    getPath(){
+        return this.langPath;
+    }
+
+    gettext(text){
+        if (this.passiveData[this.lang].hasOwnProperty(text)) {
+            return this.passiveData[this.lang][text];
+        }
+        return text;
+    }
+
+    async translate (text){
+
+        await this.loadDefaultLang();
+
+        await this.loadActiveLang();
+        
+        this.loadPassiveLang();
+        
+        return this.gettext(text);
+    }
+
     async loadDefaultLang(){
 
         if(Object.keys(this.defaultData).length == 0){
@@ -68,43 +108,6 @@ class Language {
                 };
             }
         }
-    }
-
-    setLang(language){
-        this.lang = language;
-    }
-
-    setPath(){
-        this.langPath = path.join(this.__basedir, this.langFolder);
-    }
-
-    getPath(){
-        return this.langPath;
-    }
-
-    setBaseDir(directory){
-        this.__basedir = directory;
-        this.setPath();
-    }
-
-    setLanguageDir(directory){
-        this.langFolder = directory;
-        this.setPath();
-    }
-
-    async translate (text){
-
-        await this.loadDefaultLang();
-
-        await this.loadActiveLang();
-        
-        this.loadPassiveLang()
-
-        if (this.passiveData[this.lang].hasOwnProperty(text)) {
-            return this.passiveData[this.lang][text];
-        }
-        
-        return text;
     }
 }
 
