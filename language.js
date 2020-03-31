@@ -8,17 +8,18 @@ class Language {
 
     constructor() {
         this.default_lang = "en"
-        this.langData = {};
-        this.defaultData = {};
-        this.passiveData = {};
+        this.activeLangData = {};
+        this.defaultLangData = {};
+        this.passiveLangData = {};
         this.__basedir = "./";
         this.langFolder = 'src/lang';
-        this.lang = this.default_lang;
+        this.active_lang = this.default_lang;
+        this.loaded = false;
         this.setPath();
     }
 
     setLang(language){
-        this.lang = language;
+        this.active_lang = language;
     }
 
     setBaseDir(directory){
@@ -35,58 +36,61 @@ class Language {
         this.langPath = path.join(this.__basedir, this.langFolder);
     }
 
+    setDefailtLang(language){
+        this.default_lang = language;
+        this.loaded = false;
+        this.defaultLangData = {};
+    }
+
     getPath(){
         return this.langPath;
     }
 
     gettext(text){
-        if (this.passiveData[this.lang].hasOwnProperty(text)) {
-            return this.passiveData[this.lang][text];
+        if (this.passiveLangData.hasOwnProperty(this.active_lang)) {
+            if (this.passiveLangData[this.active_lang].hasOwnProperty(text)) {
+                return this.passiveLangData[this.active_lang][text];
+            }
         }
         return text;
     }
 
     async translate (text){
-
         await this.loadDefaultLang();
-
         await this.loadActiveLang();
-        
         this.loadPassiveLang();
-        
         return this.gettext(text);
     }
 
     async loadDefaultLang(){
-
-        if(Object.keys(this.defaultData).length == 0){
+        if(Object.keys(this.defaultLangData).length == 0 && this.loaded == false){
             const readFile = promisify(fs.readFile);
             try {
                 const file_path = this.getPath();
-                this.defaultData = JSON.parse(await readFile(`${file_path}/${this.default_lang}.json`, 'utf8'));
+                this.defaultLangData = JSON.parse(await readFile(`${file_path}/${this.default_lang}.json`, 'utf8'));
             }catch (e) {
                 console.log(e);
             }
         }
+        this.loaded = true;
     }
 
     async loadActiveLang(){
-
         try {
-            if (this.langData.hasOwnProperty(this.lang) == false) {
-
-                const readDir = promisify(fs.readdir);
-
-                const file_path = this.getPath();
-
-                const langFiles = await readDir(file_path);
-
-                if(langFiles.includes(`${this.lang}.json`)){
-
-                    const readFile = promisify(fs.readFile);
-                    
-                    this.langData[this.lang] = JSON.parse(await readFile(`${file_path}/${this.lang}.json`, 'utf8'));
-                }
+            if (this.activeLangData.hasOwnProperty(this.active_lang) == false) {
+                if (this.default_lang == this.active_lang){
+                    this.activeLangData[this.active_lang] = this.defaultLangData;
+                }else{
+                    const readDir = promisify(fs.readdir);
+                    const file_path = this.getPath();
+                    const langFiles = await readDir(file_path);
+                    if(langFiles.includes(`${this.active_lang}.json`)){
+                        const readFile = promisify(fs.readFile);
+                        this.activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}.json`, 'utf8'));
+                    }else{
+                        this.activeLangData[this.active_lang] = {}
+                    }
+                }      
             }
         }catch (e) {
             console.log(e);
@@ -94,17 +98,14 @@ class Language {
     }
 
     loadPassiveLang(){
-
-        if (this.passiveData.hasOwnProperty(this.lang) == false) {
-           
-            this.passiveData[this.lang] = {
-                ...this.defaultData
+        if (this.passiveLangData.hasOwnProperty(this.active_lang) == false) {
+            this.passiveLangData[this.active_lang] = {
+                ...this.defaultLangData
             };
-
-            if (this.langData.hasOwnProperty(this.lang)) {
-                this.passiveData[this.lang] = {
-                    ...this.passiveData[this.lang],
-                    ...this.langData[this.lang]
+            if (this.activeLangData.hasOwnProperty(this.active_lang)) {
+                this.passiveLangData[this.active_lang] = {
+                    ...this.passiveLangData[this.active_lang],
+                    ...this.activeLangData[this.active_lang]
                 };
             }
         }
