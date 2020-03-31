@@ -11,8 +11,9 @@ class Language {
         this.lang = "en"
         this.defaultData = {};
         this.passiveData = {};
-        this.__basedir = "./"
-        this.langPath = path.join(this.__basedir, 'src/lang');
+        this.__basedir = "./";
+        this.langFolder = 'src/lang';
+        this.langPath = path.join(this.__basedir, this.langFolder);
     }
 
     async loadDefaultLang(){
@@ -75,6 +76,10 @@ class Language {
 
     setBaseDir(directory){
         this.__basedir = directory;
+    }
+
+    setLanguageDir(directory){
+        this.langFolder = directory;
     }
 
     async translate (text){
