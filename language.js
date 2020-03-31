@@ -12,14 +12,19 @@ class Language {
         this.defaultLangData = {};
         this.passiveLangData = {};
         this.__basedir = "./";
+        this.ext = ".json";
         this.langFolder = 'src/lang';
         this.active_lang = this.default_lang;
         this.loaded = false;
         this.setPath();
     }
 
-    setLang(language){
+    setActiveLang(language){
         this.active_lang = language;
+    }
+
+    setExtention(ext){
+        this.ext = ext;
     }
 
     setBaseDir(directory){
@@ -67,7 +72,7 @@ class Language {
             const readFile = promisify(fs.readFile);
             try {
                 const file_path = this.getPath();
-                this.defaultLangData = JSON.parse(await readFile(`${file_path}/${this.default_lang}.json`, 'utf8'));
+                this.defaultLangData = JSON.parse(await readFile(`${file_path}/${this.default_lang}${this.ext}`, 'utf8'));
             }catch (e) {
                 console.log(e);
             }
@@ -84,9 +89,9 @@ class Language {
                     const readDir = promisify(fs.readdir);
                     const file_path = this.getPath();
                     const langFiles = await readDir(file_path);
-                    if(langFiles.includes(`${this.active_lang}.json`)){
+                    if(langFiles.includes(`${this.active_lang}${this.ext}`)){
                         const readFile = promisify(fs.readFile);
-                        this.activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}.json`, 'utf8'));
+                        this.activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}${this.ext}`, 'utf8'));
                     }else{
                         this.activeLangData[this.active_lang] = {}
                     }

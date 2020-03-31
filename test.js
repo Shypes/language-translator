@@ -7,7 +7,7 @@ LangParser.setBaseDir(__dirname);
 
 sendSuccessResponse = async (res, content, message) => {
 
-    LangParser.setLang(res.language)
+    LangParser.setActiveLang(res.language)
 
     translated =  await LangParser.translate(message)
 

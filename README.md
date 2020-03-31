@@ -40,8 +40,6 @@ LangParser.setLanguageDir("src/lang");
 
 LangParser.setDefailtLang("ar");
 
-
-
 ```
 
 Sample Language file ar.json

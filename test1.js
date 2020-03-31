@@ -4,7 +4,7 @@ const Language = require('./language');
 
 const LangParser = new Language();
 
-LangParser.setLang('ar');
+LangParser.setActiveLang('ar');
 
 LangParser.setBaseDir("./");
 
