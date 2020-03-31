@@ -7,9 +7,7 @@ LangParser.setBaseDir(__dirname);
 
 sendSuccessResponse = async (res, content, message) => {
 
-    LangParser.setActiveLang(res.language)
-
-    translated =  await LangParser.translate(message)
+    translated =  await LangParser.translate(res.language, message)
 
     let data = {
         success: true,
