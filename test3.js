@@ -46,6 +46,6 @@ setTimeout(function(){
 
     data = sendSuccessResponse(res , {}, 'something_went_wrong')
 
-}, 1000)
+}, 500)
 
 

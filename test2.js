@@ -7,7 +7,7 @@ LangParser.setBaseDir(__dirname);
 
 sendSuccessResponse = async (res, content, message) => {
 
-    translated =  await LangParser.translate(res.language, message)
+    translated =  await LangParser.translate(message, res.language)
 
     let data = {
         success: true,
@@ -44,6 +44,6 @@ setTimeout(function(){
 
     data = sendSuccessResponse(res , {}, 'something_went_wrong')
 
-}, 1000)
+}, 500)
 
 

@@ -5,26 +5,28 @@ const LangParser = new Language();
 
 LangParser.setBaseDir(__dirname);
 
-translated = LangParser.translate('ar','success')
+LangParser.setActiveLang('ar');
+
+translated = LangParser.translate('success')
 
 translated.then((text) =>{
    console.log(text);
 });
 
-translated = LangParser.translate('ar','something_went_wrong')
+translated = LangParser.translate('something_went_wrong')
 
 translated.then((text) =>{
    console.log(text);
 });
 
-translated = LangParser.translate('ar','missing_required_validation')
+translated = LangParser.translate('missing_required_validation')
 
 translated.then((text) =>{
    console.log(text);
 });
 
 
-translated = LangParser.translate('ar','email_phone_validation')
+translated = LangParser.translate('email_phone_validation')
 
 translated.then((text) =>{
    console.log(text);

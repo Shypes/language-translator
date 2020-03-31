@@ -50,13 +50,16 @@ class Language {
         return text;
     }
 
-    async translate (language, text){
+    async translate (text, language){
+        language = !language ? false : language;
         await this.init(language);
         return this.gettext(text);
     }
 
     async init (language){
-        this.setActiveLang(language);
+        if(language){
+            this.setActiveLang(language);
+        }
         await this.loadDefaultLang();
         await this.loadActiveLang();
         this.loadPassiveLang();
