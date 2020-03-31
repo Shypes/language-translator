@@ -1,0 +1,6 @@
+{
+    "success": "Success!",
+    "email_phone_validation": "Email and phone cannot be empty",
+    "something_went_wrong": "Something went wrong!",
+    "missing_required_validation": "Missing required fields"
+}
