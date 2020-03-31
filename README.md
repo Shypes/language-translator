@@ -20,13 +20,21 @@ const Lang = new Language();
 
 Lang.setLang('ar');
 
-Lang.setBaseDir("./");
-
 translated = Lang.translate('email_phone_validation')
 
 translated.then((text) =>{
    console.log(text);
 });
+
+```
+
+Optional Method
+
+```
+
+Lang.setBaseDir("./");
+
+Lang.setLanguageDir("src/lang");
 
 ```
 
