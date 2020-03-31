@@ -51,11 +51,11 @@ class Language {
     }
 
     async translate (language, text){
-        await this.init_translation(language);
+        await this.init(language);
         return this.gettext(text);
     }
 
-    async init_translation (language){
+    async init (language){
         this.setActiveLang(language);
         await this.loadDefaultLang();
         await this.loadActiveLang();
