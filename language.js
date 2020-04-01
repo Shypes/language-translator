@@ -55,19 +55,33 @@ class Language {
         return this.langPath;
     }
 
-    gettext(text){
+    gettext(text, param={}){
         if (this.passiveLangData.hasOwnProperty(this.active_lang)) {
             if (this.passiveLangData[this.active_lang].hasOwnProperty(text)) {
-                return this.passiveLangData[this.active_lang][text];
+                if(Object.keys(param).length == 0)
+                    return this.passiveLangData[this.active_lang][text];
+                else
+                    return this.renderString(this.passiveLangData[this.active_lang][text], param);
             }
         }
         return text;
     }
 
-    async translate (text, language){
+    renderString(template, variables, fallback) {
+        return template.replace(/\${[^{]+}/g, (match) => {
+            const path = match.slice(2, -1).trim();
+            return this.getObjPath(path, variables, fallback);
+        });
+    }
+    
+    getObjPath(path, obj, fallback = '') {
+        return path.split('.').reduce((res, key) =>  this.gettext(res[key]) || fallback, obj);
+    }
+
+    async translate (text, param={}, language=false){
         language = !language ? false : language;
         await this.init(language);
-        return this.gettext(text);
+        return this.gettext(text, param);
     }
 
     async init (language){

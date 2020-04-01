@@ -7,7 +7,7 @@ LangParser.setBaseDir(__dirname);
 
 LangParser.setActiveLang('ar');
 
-translated = LangParser.translate('success')
+translated = LangParser.translate('missing_truck', {'status':"delivered"} )
 
 translated.then((text) =>{
    console.log(text);

@@ -2,5 +2,7 @@
     "success": "نجاح",
     "email_phone_validation": "لا يمكن أن يكون البريد الإلكتروني والهاتف فارغين",
     "something_went_wrong": "هناك خطأ ما",
-    "missing_required_validation": "الحقول المطلوبة مفقودة"
+    "missing_required_validation": "الحقول المطلوبة مفقودة",
+    "missing_truck": "تم تعيين تجمع طلبات الشاحنات بالفعل على ${status}",
+    "delivered": "تم تعي"
 }
