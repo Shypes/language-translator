@@ -74,7 +74,7 @@ class Language {
         this.setActiveLang(language);
         await this.loadDefaultLang();
         await this.loadActiveLang();
-        this.loadPassiveLang();
+        await this.loadPassiveLang();
     }
 
     async loadDefaultLang(){
@@ -112,7 +112,7 @@ class Language {
         }
     }
 
-    loadPassiveLang(){
+    async loadPassiveLang(){
         if (!this.passiveLangData.hasOwnProperty(this.active_lang)) {
             this.passiveLangData[this.active_lang] = {
                 ...this.defaultLangData
