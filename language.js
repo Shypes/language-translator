@@ -92,7 +92,7 @@ class Language {
 
     async loadActiveLang(){
         try {
-            if (this.activeLangData.hasOwnProperty(this.active_lang) == false) {
+            if (!this.activeLangData.hasOwnProperty(this.active_lang)) {
                 if (this.default_lang == this.active_lang){
                     this.activeLangData[this.active_lang] = this.defaultLangData;
                 }else{
@@ -113,7 +113,7 @@ class Language {
     }
 
     loadPassiveLang(){
-        if (this.passiveLangData.hasOwnProperty(this.active_lang) == false) {
+        if (!this.passiveLangData.hasOwnProperty(this.active_lang)) {
             this.passiveLangData[this.active_lang] = {
                 ...this.defaultLangData
             };
