@@ -23,7 +23,8 @@ class Language {
     }
 
     setActiveLang(language){
-        this.active_lang = language;
+        language = !language ? false : language;
+        if(language) this.active_lang = language;
     }
 
     setExtention(ext){
@@ -70,9 +71,7 @@ class Language {
     }
 
     async init (language){
-        if(language){
-            this.setActiveLang(language);
-        }
+        this.setActiveLang(language);
         await this.loadDefaultLang();
         await this.loadActiveLang();
         this.loadPassiveLang();
