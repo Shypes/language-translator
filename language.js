@@ -9,6 +9,19 @@ class Language {
         this.reset();
     }
 
+    reset (){
+        this.default_lang = "en"
+        this.activeLangData = {};
+        this.defaultLangData = {};
+        this.passiveLangData = {};
+        this.__basedir = "./";
+        this.ext = ".json";
+        this.langFolder = 'src/lang';
+        this.active_lang = this.default_lang;
+        this.loaded = false;
+        this.setPath();
+    }
+
     setActiveLang(language){
         this.active_lang = language;
     }
@@ -63,19 +76,6 @@ class Language {
         await this.loadDefaultLang();
         await this.loadActiveLang();
         this.loadPassiveLang();
-    }
-
-    reset (){
-        this.default_lang = "en"
-        this.activeLangData = {};
-        this.defaultLangData = {};
-        this.passiveLangData = {};
-        this.__basedir = "./";
-        this.ext = ".json";
-        this.langFolder = 'src/lang';
-        this.active_lang = this.default_lang;
-        this.loaded = false;
-        this.setPath();
     }
 
     async loadDefaultLang(){
