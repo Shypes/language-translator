@@ -67,7 +67,33 @@ Sample Language file en.json
 ```
 
 
-It also contains a simple files of different approach
+It also support templated json strings
+
+```
+
+const Language = require('./language');
+
+const LangParser = new Language();
+
+LangParser.setBaseDir(__dirname);
+
+LangParser.setActiveLang('ar');
+
+translated = LangParser.translate('missing_truck', {'status':"delivered"} )
+
+translated.then((text) =>{
+   console.log(text);
+});
+```
+
+```
+{
+    "missing_truck": "تم تعيين تجمع طلبات الشاحنات بالفعل على ${status}",
+}
+```
+
+
+Test Files
 
 ```
 node test1.js
