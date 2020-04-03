@@ -1,6 +1,6 @@
 {
     "name": "@shypes/languagetranslator",
-    "version": "1.0103.0",
+    "version": "1.02.0",
     "description": "Helps with dynamic language transaltion",
     "license": "MIT",
     "repository": "shypes/languagetranslator",
