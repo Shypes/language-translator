@@ -141,9 +141,6 @@ class Language {
     }
 }
 
-module.exports = Language;
-
-
-module.exports = function languagetranslator(string) {
+exports.languagetranslator = ()  => {
     return new Language();
 };
