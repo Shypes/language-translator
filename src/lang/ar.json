@@ -4,5 +4,7 @@
     "something_went_wrong": "هناك خطأ ما",
     "missing_required_validation": "الحقول المطلوبة مفقودة",
     "missing_truck": "تم تعيين تجمع طلبات الشاحنات بالفعل على ${status}",
-    "delivered": "تم تعي"
+    "delivered": "تم تعي",
+    "message": "تم تعي",
+    "data": "تdddم تعي"
 }
