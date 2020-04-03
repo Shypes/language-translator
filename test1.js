@@ -3,7 +3,7 @@
 
 const {languagetranslator} = require('.');
 
-LangParser = languagetranslator();
+const LangParser = languagetranslator();
 
 LangParser.setBaseDir(__dirname);
 
