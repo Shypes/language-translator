@@ -142,3 +142,8 @@ class Language {
 }
 
 module.exports = Language;
+
+
+module.exports = function languagetranslator(string) {
+    return new Language();
+};
