@@ -93,38 +93,38 @@ class Language {
 
     async loadDefaultLang(){
         if(Object.keys(this.defaultLangData).length == 0 && this.loaded == false){
-            try {
-                const file_path = this.getPath();
-                let isFile =  fs.existsSync(`${file_path}/${this.default_lang}${this.ext}`)
-                if(isFile){
-                    const readFile = promisify(fs.readFile);
+            const file_path = this.getPath();
+            let isFile =  fs.existsSync(`${file_path}/${this.default_lang}${this.ext}`)
+            if(isFile){
+                const readFile = promisify(fs.readFile);
+                try {
                     this.defaultLangData = JSON.parse(await readFile(`${file_path}/${this.default_lang}${this.ext}`, 'utf8'));
+                }catch (e) {
+                    this.defaultLangData = {}
                 }
-            }catch (e) {
-                console.log(e);
             }
         }
         this.loaded = true;
     }
 
     async loadActiveLang(){
-        try {
-            if (!this.activeLangData.hasOwnProperty(this.active_lang)) {
-                if (this.default_lang == this.active_lang){
-                    this.activeLangData[this.active_lang] = this.defaultLangData;
-                }else{
-                    const file_path = this.getPath();
-                    let isFile =  fs.existsSync(`${file_path}/${this.active_lang}${this.ext}`)
-                    if(isFile){
-                        const readFile = promisify(fs.readFile);
+        if (!this.activeLangData.hasOwnProperty(this.active_lang)) {
+            if (this.default_lang == this.active_lang){
+                this.activeLangData[this.active_lang] = this.defaultLangData;
+            }else{
+                const file_path = this.getPath();
+                let isFile =  fs.existsSync(`${file_path}/${this.active_lang}${this.ext}`)
+                if(isFile){
+                    const readFile = promisify(fs.readFile);
+                    try {
                         this.activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}${this.ext}`, 'utf8'));
-                    }else{
+                    }catch (e) {
                         this.activeLangData[this.active_lang] = {}
                     }
-                }      
-            }
-        }catch (e) {
-            console.log(e);
+                }else{
+                    this.activeLangData[this.active_lang] = {}
+                }
+            }      
         }
     }
 
