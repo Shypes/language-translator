@@ -1,20 +1,22 @@
-# Simple Language Parser
+# @shypes/languagetranslator
+
+[![npm (scoped)](https://img.shields.io/npm/v/@shypes/languagetranslator.svg)](https://www.npmjs.com/package/@shypes/languagetranslator)
+[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@shypes/languagetranslator.svg)](https://www.npmjs.com/package/@shypes/languagetranslator)
+[![GitHub issues](https://img.shields.io/github/issues/Shypes/langparser)](https://github.com/Shypes/langparser/issues)
+
 
 This is a simple node.js langusge parse to help with language translation
 
-### Project Setup ###
-
-
+## Install
 
 ```
-const Language = require('./language');
+$ npm install @shypes/languagetranslator
 ```
 
+## Usage
 
-Usage
-
-```
-const Language = require('./language');
+```js
+const Language = require("@shypes/languagetranslator");
 
 const LangParser = new Language();
 
@@ -30,7 +32,7 @@ translated.then((text) =>{
 
 Optional Method
 
-```
+```js
 
 LangParser.setActiveLang("en");
 
@@ -46,7 +48,7 @@ LangParser.setExtention(".txt");
 
 Sample Language file ar.json
 
-```
+```json
 {
     "success": "نجاح",
     "email_phone_validation": "لا يمكن أن يكون البريد الإلكتروني والهاتف فارغين",
@@ -57,7 +59,7 @@ Sample Language file ar.json
 
 Sample Language file en.json
 
-```
+```json
 {
     "success": "Success!",
     "email_phone_validation": "Email and phone cannot be empty",
@@ -69,9 +71,9 @@ Sample Language file en.json
 
 It also support templated json strings
 
-```
+```js
 
-const Language = require('./language');
+const Language = require("@shypes/languagetranslator");
 
 const LangParser = new Language();
 
@@ -86,7 +88,7 @@ translated.then((text) =>{
 });
 ```
 
-```
+```json
 {
     "missing_truck": "تم تعيين تجمع طلبات الشاحنات بالفعل على ${status}",
 }
@@ -95,7 +97,7 @@ translated.then((text) =>{
 
 Test Files
 
-```
+```js
 node test1.js
 node test2.js
 node test3.js
