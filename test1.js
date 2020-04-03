@@ -1,5 +1,5 @@
 
-const Language = require('./index');
+const Language = require('.');
 
 const LangParser = new Language();
 
