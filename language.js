@@ -23,8 +23,8 @@ class Language {
     }
 
     setActiveLang(language){
-        language = !language ? false : language;
-        if(language) this.active_lang = language;
+        language = (!language || language == '')  ? false : language;
+        if(language) this.active_lang = language.trim();
     }
 
     setExtention(ext){
