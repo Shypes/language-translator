@@ -1,0 +1,7 @@
+{
+    "name": "@shypes/languagetranslator",
+    "version": "1.0.0",
+    "description": "Helps with dynamic language transaltion",
+    "license": "MIT",
+    "repository": "shypes/languagetranslator"
+}

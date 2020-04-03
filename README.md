@@ -1,7 +1,6 @@
 # @shypes/languagetranslator
 
 [![npm (scoped)](https://img.shields.io/npm/v/@shypes/languagetranslator.svg)](https://www.npmjs.com/package/@shypes/languagetranslator)
-[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@shypes/languagetranslator.svg)](https://www.npmjs.com/package/@shypes/languagetranslator)
 [![GitHub issues](https://img.shields.io/github/issues/Shypes/langparser)](https://github.com/Shypes/langparser/issues)
 
 
