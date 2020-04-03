@@ -3,5 +3,13 @@
     "version": "1.0.0",
     "description": "Helps with dynamic language transaltion",
     "license": "MIT",
-    "repository": "shypes/languagetranslator"
+    "repository": "shypes/languagetranslator",
+    "main": "index.js",
+    "keywords": [
+        "language",
+        "translator",
+        "npm",
+        "package",
+        "shypes"
+    ]
 }
