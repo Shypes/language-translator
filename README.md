@@ -17,7 +17,7 @@ $ npm install @shypes/languagetranslator
 ```js
 const Language = require("@shypes/languagetranslator");
 
-const LangParser = new Language();
+const LangParser = Language();
 
 LangParser.setLang('ar');
 
@@ -74,7 +74,7 @@ It also support templated json strings
 
 const Language = require("@shypes/languagetranslator");
 
-const LangParser = new Language();
+const LangParser = Language();
 
 LangParser.setBaseDir(__dirname);
 
