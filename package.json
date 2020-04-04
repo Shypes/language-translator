@@ -20,7 +20,11 @@
   },
   "homepage": "https://github.com/shypes/languagetranslator#readme",
   "scripts": {
+    "prepublish": "yarn run lint && yarn run test && yarn run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Tosin Adesipe"
+  "author": "Tosin Adesipe",
+  "engines": {
+    "node": ">=7.8.0"
+  }
 }

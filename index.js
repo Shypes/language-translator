@@ -137,17 +137,6 @@ class Language {
         }
     }
 
-    loadLanguage(language, data){
-        if (!this.passiveLangData.hasOwnProperty(language)) {
-            this.passiveLangData[language] = data;
-        }else{
-            this.passiveLangData[language] = {
-                ...this.passiveLangData[language],
-                ...data
-            };
-        }
-    }
-
     async loadPassiveLang(){
         if (!this.passiveLangData.hasOwnProperty(this.active_lang)) {
             this.passiveLangData[this.active_lang] = {
@@ -161,6 +150,18 @@ class Language {
             }
         }
     }
+
+    loadLanguage(language, data){
+        if (!this.passiveLangData.hasOwnProperty(language)) {
+            this.passiveLangData[language] = data;
+        }else{
+            this.passiveLangData[language] = {
+                ...this.passiveLangData[language],
+                ...data
+            };
+        }
+    }
+
 }
 
 module.exports = function languagetranslato(string) {
