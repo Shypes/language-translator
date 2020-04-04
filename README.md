@@ -3,7 +3,11 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@shypes/language-translator.svg)](https://www.npmjs.com/package/@shypes/language-translator)
 [![GitHub issues](https://img.shields.io/github/issues/Shypes/language-translator)](https://img.shields.io/github/issues/Shypes/language-translator)
 
-This is a simple node.js langusge parse to help with language translation
+## Introduction
+
+This is a simple langusge parse to help with language key translation built for speed using in-memory caching optimization technique.
+
+Language file only get loaded once during your application life cycle
 
 ## Install
 
