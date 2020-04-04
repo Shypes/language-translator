@@ -2,8 +2,11 @@ const {promisify} = require('util');
 const path = require('path');
 const fs = require('fs');
 
-class Language {
+global.activeLangData = {};
+global.defaultLangData = {};
+global.passiveLangData = {};
 
+class Language {
 
     constructor() {
         this.reset();
@@ -11,9 +14,6 @@ class Language {
 
     reset (){
         this.default_lang = "en"
-        this.activeLangData = {};
-        this.defaultLangData = {};
-        this.passiveLangData = {};
         this.__basedir = "./";
         this.ext = ".json";
         this.langFolder = 'lang';
@@ -49,7 +49,7 @@ class Language {
     setDefaultLang(language){
         this.default_lang = language;
         this.loaded = false;
-        this.defaultLangData = {};
+        defaultLangData = {};
     }
 
     setPath(){
@@ -61,12 +61,12 @@ class Language {
     }
 
     gettext(text, param={}){
-        if (this.passiveLangData.hasOwnProperty(this.active_lang)) {
-            if (this.passiveLangData[this.active_lang].hasOwnProperty(text)) {
+        if (passiveLangData.hasOwnProperty(this.active_lang)) {
+            if (passiveLangData[this.active_lang].hasOwnProperty(text)) {
                 if(Object.keys(param).length == 0)
-                    return this.passiveLangData[this.active_lang][text];
+                    return passiveLangData[this.active_lang][text];
                 else
-                    return this.renderString(this.passiveLangData[this.active_lang][text], param);
+                    return this.renderString(passiveLangData[this.active_lang][text], param);
             }
         }
         return text;
@@ -101,7 +101,7 @@ class Language {
     }
 
     async loadDefaultLang(){
-        if(Object.keys(this.defaultLangData).length == 0 
+        if(Object.keys(defaultLangData).length == 0 
         && this.loaded == false  
         && this.load_from_file){
             const file_path = this.getPath();
@@ -109,9 +109,9 @@ class Language {
             if(isFile){
                 const readFile = promisify(fs.readFile);
                 try {
-                    this.defaultLangData = JSON.parse(await readFile(`${file_path}/${this.default_lang}${this.ext}`, 'utf8'));
+                    defaultLangData = JSON.parse(await readFile(`${file_path}/${this.default_lang}${this.ext}`, 'utf8'));
                 }catch (e) {
-                    this.defaultLangData = {}
+                    defaultLangData = {}
                 }
             }
         }
@@ -119,48 +119,49 @@ class Language {
     }
 
     async loadActiveLang(){
-        if (!this.activeLangData.hasOwnProperty(this.active_lang) 
+        if (!activeLangData.hasOwnProperty(this.active_lang) 
         && this.load_from_file 
-        && !this.passiveLangData.hasOwnProperty(this.active_lang)) {
+        && !passiveLangData.hasOwnProperty(this.active_lang)) {
             if (this.default_lang == this.active_lang){
-                this.activeLangData[this.active_lang] = this.defaultLangData;
+                activeLangData[this.active_lang] = defaultLangData;
             }else{
+                console.log('hi');
                 const file_path = this.getPath();
                 let isFile =  fs.existsSync(`${file_path}/${this.active_lang}${this.ext}`)
                 if(isFile){
                     const readFile = promisify(fs.readFile);
                     try {
-                        this.activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}${this.ext}`, 'utf8'));
+                        activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}${this.ext}`, 'utf8'));
                     }catch (e) {
-                        this.activeLangData[this.active_lang] = {}
+                        activeLangData[this.active_lang] = {}
                     }
                 }else{
-                    this.activeLangData[this.active_lang] = {}
+                    activeLangData[this.active_lang] = {}
                 }
             }      
         }
     }
 
     async loadPassiveLang(){
-        if (!this.passiveLangData.hasOwnProperty(this.active_lang)) {
-            this.passiveLangData[this.active_lang] = {
-                ...this.defaultLangData
+        if (!passiveLangData.hasOwnProperty(this.active_lang)) {
+            passiveLangData[this.active_lang] = {
+                ...defaultLangData
             };
-            if (this.activeLangData.hasOwnProperty(this.active_lang)) {
-                this.passiveLangData[this.active_lang] = {
-                    ...this.passiveLangData[this.active_lang],
-                    ...this.activeLangData[this.active_lang]
+            if (activeLangData.hasOwnProperty(this.active_lang)) {
+                passiveLangData[this.active_lang] = {
+                    ...passiveLangData[this.active_lang],
+                    ...activeLangData[this.active_lang]
                 };
             }
         }
     }
 
     loadLanguage(language, data){
-        if (!this.passiveLangData.hasOwnProperty(language)) {
-            this.passiveLangData[language] = data;
+        if (!passiveLangData.hasOwnProperty(language)) {
+            passiveLangData[language] = data;
         }else{
-            this.passiveLangData[language] = {
-                ...this.passiveLangData[language],
+            passiveLangData[language] = {
+                ...passiveLangData[language],
                 ...data
             };
         }
