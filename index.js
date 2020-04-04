@@ -125,7 +125,6 @@ class Language {
             if (this.default_lang == this.active_lang){
                 activeLangData[this.active_lang] = defaultLangData;
             }else{
-                console.log('hi');
                 const file_path = this.getPath();
                 let isFile =  fs.existsSync(`${file_path}/${this.active_lang}${this.ext}`)
                 if(isFile){
