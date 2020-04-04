@@ -16,7 +16,7 @@ class Language {
         this.passiveLangData = {};
         this.__basedir = "./";
         this.ext = ".json";
-        this.langFolder = 'src/lang';
+        this.langFolder = 'lang';
         this.active_lang = this.default_lang;
         this.loaded = false;
         this.load_from_file = true;

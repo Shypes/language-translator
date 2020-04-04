@@ -19,7 +19,7 @@ Follow the set by step guide below
 
 Create a dedicated folder to store your language template file.
 
-Default folder is `lang/src` from your base directory configuration, 
+Default folder is `lang` from your base directory configuration, 
 
 You will see how to set up your **base directory** below
 
