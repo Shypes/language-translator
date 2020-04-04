@@ -1,13 +1,15 @@
 
-const {languagetranslator} = require('.');
+const Language = require('.');
 
-const LangParser = languagetranslator();
+const LangParser = Language();
 
 LangParser.setBaseDir(__dirname);
 
 LangParser.setActiveLang('ar');
 
-LangParser.loadDefaultData('en', {
+LangParser.setLoadFromFile(false);
+
+LangParser.loadLanguage('en', {
    "success": "Success!",
    "email_phone_validation": "Email and phone cannot be empty",
    "something_went_wrong": "Something went wrong!",
@@ -24,7 +26,7 @@ LangParser.loadDefaultData('en', {
    }
 )
 
-LangParser.loadActiveData('ar', {
+LangParser.loadLanguage('ar', {
    "success": "نجاح",
    "email_phone_validation": "لا يمكن أن يكون البريد الإلكتروني والهاتف فارغين",
    "something_went_wrong": "هناك خطأ ما",

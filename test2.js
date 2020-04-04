@@ -1,7 +1,7 @@
 
-const {languagetranslator} = require('.');
+const Language = require('.');
 
-const LangParser = languagetranslator();
+const LangParser = Language();
 
 LangParser.setBaseDir(__dirname);
 

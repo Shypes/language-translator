@@ -1,15 +1,26 @@
 {
-    "name": "@shypes/languagetranslator",
-    "version": "1.2.3",
-    "description": "Helps with dynamic language transaltion",
-    "license": "MIT",
-    "repository": "shypes/languagetranslator",
-    "main": "index.js",
-    "keywords": [
-        "language",
-        "translator",
-        "npm",
-        "package",
-        "shypes"
-    ]
+  "name": "@shypes/languagetranslator",
+  "version": "1.2.41",
+  "description": "Helps with dynamic language transaltion",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shypes/languagetranslator.git"
+  },
+  "main": "index.js",
+  "keywords": [
+    "language",
+    "translator",
+    "npm",
+    "package",
+    "shypes"
+  ],
+  "bugs": {
+    "url": "https://github.com/shypes/languagetranslator/issues"
+  },
+  "homepage": "https://github.com/shypes/languagetranslator#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tosin Adesipe"
 }

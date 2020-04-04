@@ -97,7 +97,10 @@ class Language {
     }
 
     async loadDefaultLang(){
-        if(Object.keys(this.defaultLangData).length == 0 && this.loaded == false  && this.load_from_file){
+        if(Object.keys(this.defaultLangData).length == 0 
+        && this.loaded == false  
+        && this.load_from_file){
+            console.log('hi')
             const file_path = this.getPath();
             let isFile =  fs.existsSync(`${file_path}/${this.default_lang}${this.ext}`)
             if(isFile){
@@ -113,7 +116,9 @@ class Language {
     }
 
     async loadActiveLang(){
-        if (!this.activeLangData.hasOwnProperty(this.active_lang) && this.load_from_file) {
+        if (!this.activeLangData.hasOwnProperty(this.active_lang) 
+        && this.load_from_file 
+        && !this.passiveLangData.hasOwnProperty(this.active_lang)) {
             if (this.default_lang == this.active_lang){
                 this.activeLangData[this.active_lang] = this.defaultLangData;
             }else{
@@ -133,16 +138,14 @@ class Language {
         }
     }
 
-    loadDefaultData(language, data){
-        this.default_lang = language;
-        this.loaded = true;
-        this.defaultLangData = data;
-    }
-
-    loadActiveData(language, data){
-        this.active_lang = language;
-        if (!this.activeLangData.hasOwnProperty(this.active_lang)) {
-            this.activeLangData[this.active_lang] = data;
+    loadLanguage(language, data){
+        if (!this.passiveLangData.hasOwnProperty(language)) {
+            this.passiveLangData[language] = data;
+        }else{
+            this.passiveLangData[language] = {
+                ...this.passiveLangData[language],
+                ...data
+            };
         }
     }
 
@@ -161,6 +164,6 @@ class Language {
     }
 }
 
-exports.languagetranslator = ()  => {
+module.exports = function languagetranslato(string) {
     return new Language();
 };
