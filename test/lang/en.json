@@ -4,13 +4,5 @@
     "something_went_wrong": "Something went wrong!",
     "missing_required_validation": "Missing required fields",
     "missing_truck": "Truck Request Pool has already been set to ${status}", 
-    "positioned": "positioned",
-    "in-premise": "in-premise",
-    "loaded": "loaded",
-    "transporting": "transporting",
-    "at-destination": "at-destination",
-    "offloaded": "offloaded",
-    "returningContainer": "returning container",
-    "delivered": "delivered",
     "deliver_code":"Hello ${name}, here is your otp code ${code}"
 }

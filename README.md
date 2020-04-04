@@ -96,6 +96,33 @@ translated.then((text) =>{
 
 ```
 
+## Using a function
+
+```js
+
+testTranslate = async (language, message) => {
+
+    Lang.setActiveLang(language);
+
+    translated =  await Lang.get(message)
+
+    let data = {
+        message: translated,
+        language
+    };
+
+    console.log(data);
+};
+
+
+testTranslate('ar','something_went_wrong')
+
+testTranslate('en','missing_required_validation')
+
+testTranslate('ar','email_phone_validation')
+
+```
+
 Other Optional Method
 
 ```js
@@ -120,14 +147,6 @@ const data = {
     "something_went_wrong": "هناك خطأ ما!",
     "missing_required_validation": "الحقول المطلوبة مفقودة",
     "missing_truck": "تم تعيين تجمع طلبات الشاحنات بالفعل على ${status}",
-    "positioned": "وضعه",
-    "in-premise": "في الفرضية",
-    "loaded": "محمل",
-    "transporting": "نقل",
-    "At-destination": "في الوجهة",
-    "offloaded": "تفريغها",
-    "returningContainer": "حاوية عائدة",
-    "delivered": "تم التوصيل",
     "deliver_code":"مرحبًا ${name} ، إليك رمز otp ${code}"
 }
 
