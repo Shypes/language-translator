@@ -89,6 +89,10 @@ class Language {
         return this.gettext(text, param);
     }
 
+    async get (text, param={}, language=false){
+        return await this.translate(text, param, language);
+    }
+
     async init (language){
         this.setActiveLang(language);
         await this.loadDefaultLang();
