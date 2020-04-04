@@ -88,7 +88,7 @@ Lang.setActiveLang('ar');
 
 // get the text base on the defined language key
 
-translated = Lang.translate('email_phone_validation')
+translated = Lang.get('email_phone_validation')
 
 translated.then((text) =>{
    console.log(text);
