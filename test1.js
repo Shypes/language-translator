@@ -1,6 +1,4 @@
 
-
-
 const Language = require('.');
 
 const LangParser = Language();

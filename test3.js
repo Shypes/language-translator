@@ -31,5 +31,3 @@ setTimeout(function(){
    testTranslate('ar' , 'email_phone_validation')
 
 }, 1000)
-
-
