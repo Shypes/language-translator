@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This is a simple langusge parse to help with language key translation built for speed using in-memory caching optimization technique.
+This is a simple light weight langusge parse to help with language key translation built for speed using in-memory caching optimization technique.
 
 Language file only get loaded once during your application life cycle
 
@@ -171,7 +171,7 @@ It also support **templated** json strings
 
 ```js
 
-translated = Lang.translate('deliver_code', {'name':"John", 'code': 343923} )
+translated = Lang.get('deliver_code', {'name':"John", 'code': 343923} )
 
 translated.then((text) =>{
    console.log(text);

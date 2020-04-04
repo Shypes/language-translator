@@ -1,6 +1,6 @@
 {
   "name": "@shypes/language-translator",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Helps with dynamic language transaltion",
   "license": "MIT",
   "repository": {
@@ -11,13 +11,21 @@
   "keywords": [
     "language",
     "translator",
+    "translation",
     "npm",
     "package",
     "template",
     "dynamic",
     "nodejs",
     "node",
-    "parse",
+    "parser",
+    "light weight",
+    "fast",
+    "simple",
+    "speed",
+    "in-memory",
+    "caching",
+    "optimization",
     "shypes"
   ],
   "bugs": {
