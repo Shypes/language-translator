@@ -1,7 +1,7 @@
-# @shypes/languagetranslator
+# @shypes/language-translator
 
-[![npm (scoped)](https://img.shields.io/npm/v/@shypes/languagetranslator.svg)](https://www.npmjs.com/package/@shypes/languagetranslator)
-[![GitHub issues](https://img.shields.io/github/issues/Shypes/langparser)](https://github.com/Shypes/langparser/issues)
+[![npm (scoped)](https://img.shields.io/npm/v/@shypes/language-translator.svg)](https://www.npmjs.com/package/@shypes/language-translator)
+[![GitHub issues](https://img.shields.io/github/issues/Shypes/language-translator)](https://img.shields.io/github/issues/Shypes/language-translator)
 
 
 This is a simple node.js langusge parse to help with language translation
@@ -9,13 +9,13 @@ This is a simple node.js langusge parse to help with language translation
 ## Install
 
 ```
-$ npm install @shypes/languagetranslator
+$ npm install @shypes/language-translator
 ```
 
 ## Usage
 
 ```js
-const Language = require("@shypes/languagetranslator");
+const Language = require("@shypes/language-translator");
 
 const LangParser = Language();
 
@@ -72,7 +72,7 @@ It also support templated json strings
 
 ```js
 
-const Language = require("@shypes/languagetranslator");
+const Language = require("@shypes/language-translator");
 
 const LangParser = Language();
 
