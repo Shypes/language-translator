@@ -46,14 +46,14 @@ class Language {
         this.setPath();
     }
 
-    setPath(){
-        this.langPath = path.join(this.__basedir, this.langFolder);
-    }
-
     setDefaultLang(language){
         this.default_lang = language;
         this.loaded = false;
         this.defaultLangData = {};
+    }
+
+    setPath(){
+        this.langPath = path.join(this.__basedir, this.langFolder);
     }
 
     getPath(){
