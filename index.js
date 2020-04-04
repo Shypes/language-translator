@@ -100,7 +100,6 @@ class Language {
         if(Object.keys(this.defaultLangData).length == 0 
         && this.loaded == false  
         && this.load_from_file){
-            console.log('hi')
             const file_path = this.getPath();
             let isFile =  fs.existsSync(`${file_path}/${this.default_lang}${this.ext}`)
             if(isFile){
