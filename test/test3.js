@@ -9,7 +9,7 @@ testTranslate = async (language, message) => {
 
    await LangParser.init(language)
 
-   translated =  LangParser.gettext(message)
+   translated =  LangParser.text(message)
 
    let data = {
       language,

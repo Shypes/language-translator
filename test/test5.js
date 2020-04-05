@@ -1,17 +1,16 @@
 
 const Language = require('../');
 
-const LangParser = Language._();
-
-LangParser.setBaseDir(__dirname);
-
-testTranslate = async (language, message) => {
-
-    translated =  await LangParser.translate(message, {}, language)
-
-    console.log(data)
-};
-
+Language._({
+    default_lang : "en",
+    __basedir : __dirname
+})
+ 
+ Language.load('ar', {
+    "data": "البيانات",
+    "message": "رسالة",
+    }
+ )
 
 testTranslate = async (res, content, message) => {
     let responseData = {"message" : "", "param" : ""};
@@ -22,14 +21,14 @@ testTranslate = async (res, content, message) => {
     }
     responseData = {...responseData, ...message};
 
-    let translated = await LangParser.get(responseData['message'], res.language, responseData['param']);
+    let translated = await Language.get(responseData['message'], res.language, responseData['param']);
 
     lang_key = !res.lang_key ? false : true;
 
     response_key = {
-        'data': lang_key ? LangParser.gettext('data') : 'data',
-        'message': lang_key ? LangParser.gettext('message') : 'message',
-        'success': lang_key ? LangParser.gettext('success') : 'success'
+        'data': lang_key ? Language.text('data') : 'data',
+        'message': lang_key ? Language.text('message') : 'message',
+        'success': lang_key ? Language.text('success') : 'success'
     }
 
     let data = {}
@@ -45,17 +44,10 @@ res = {
     'lang_key' : true
 }
 
+testTranslate(res, {}, 'success')
 
-data = testTranslate(res, {}, 'success')
+testTranslate(res, {}, 'something_went_wrong')
 
-setTimeout(function(){
+testTranslate(res, {}, 'missing_required_validation')
 
-    testTranslate(res, {}, 'something_went_wrong')
-
-    testTranslate(res, {}, 'missing_required_validation')
-
-    testTranslate(res, {}, 'email_phone_validation')
-
-}, 10)
-
-
+testTranslate(res, {}, 'email_phone_validation')

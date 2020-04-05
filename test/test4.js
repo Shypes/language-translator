@@ -3,7 +3,7 @@ const Language = require('../');
 
 const LangParser = Language._();
 
-LangParser.setBaseDir("./");
+LangParser.setBaseDir(__dirname);
 
 translate = LangParser.init('ar')
 

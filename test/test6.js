@@ -9,7 +9,7 @@ LangParser.setActiveLang('ar');
 
 LangParser.setLoadFromFile(false);
 
-LangParser.loadLanguage('en', {
+LangParser.load('en', {
    "success": "Success!",
    "email_phone_validation": "Email and phone cannot be empty",
    "something_went_wrong": "Something went wrong!",
@@ -20,7 +20,7 @@ LangParser.loadLanguage('en', {
    }
 )
 
-LangParser.loadLanguage('ar', {
+LangParser.load('ar', {
    "success": "نجاح",
    "email_phone_validation": "لا يمكن أن يكون البريد الإلكتروني والهاتف فارغين",
    "something_went_wrong": "هناك خطأ ما!",

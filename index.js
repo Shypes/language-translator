@@ -69,7 +69,7 @@ class Language {
         return this.langPath;
     }
 
-    gettext(text, param={}, language = false){
+    text(text, language = false,  param={}){
         language = language ? language : this.active_lang;
         if (passiveLangData.hasOwnProperty(language)) {
             if (passiveLangData[language].hasOwnProperty(text)) {
@@ -82,6 +82,10 @@ class Language {
         return text;
     }
 
+    gettext(text, language = false,  param={}){
+        return this.text(text, language,  param);
+    }
+
     renderString(language, template, variables, fallback) {
         return template.replace(/\${[^{]+}/g, (match) => {
             const path = match.slice(2, -1).trim();
@@ -90,17 +94,17 @@ class Language {
     }
     
     getObjPath(language, path, obj, fallback = '') {
-        return path.split('.').reduce((res, key) =>  this.gettext(res[key],{},language) || fallback, obj);
+        return path.split('.').reduce((res, key) =>  this.text(res[key],language) || fallback, obj);
     }
 
     async translate (text, language=false, param={}){
         language = !language ? false : language;
         await this.init(language);
-        return this.gettext(text, param, language);
+        return this.text(text, language, param);
     }
 
     async get (text, language=false, param={}){
-        return await this.translate(text, param, language);
+        return await this.translate(text, language, param);
     }
 
     async init (language){
@@ -165,7 +169,7 @@ class Language {
         }
     }
 
-    loadLanguage(language, data){
+    load(language, data){
         if (!passiveLangData.hasOwnProperty(language)) {
             passiveLangData[language] = data;
         }else{
@@ -176,11 +180,11 @@ class Language {
         }
     }
 
-}
+    loadLanguage(language, data){
+        return this.load(language, data);
+    }
 
-// module.exports = function languagetranslato(options) {
-//     return new Language(options);
-// };
+}
 
 global._SL = null;
 
@@ -195,7 +199,18 @@ exports._ = (options) => {
     return getLang(options);
 };
 
-exports.get = async (text, param={}, language=false) => {
+exports.get = async (text, language=false, param={}) => {
     Lang = getLang();
-    return await Lang.get(text, {}, language)
+    return await Lang.get(text, language, param)
+};
+
+exports.text = (text, language=false, param={}) => {
+    Lang = getLang();
+    return Lang.text(text, language, param)
+};
+
+exports.load = async (language, data) => {
+    Lang = getLang();
+    await Lang.init (language);
+    Lang.load(language, data)
 };
