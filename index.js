@@ -33,7 +33,7 @@ class Language {
     }
 
     setActiveLang(language){
-        language = (!language || language == '')  ? false : language;
+        language = (language && language != '' && typeof language == 'string')  ? language : false;
         if(language) this.active_lang = language.trim();
     }
 
@@ -70,7 +70,7 @@ class Language {
     }
 
     text(text, language = false,  param={}){
-        language = language ? language : this.active_lang;
+        language = (language && language != '' && typeof language == 'string')  ? language : this.active_lang;
         if (passiveLangData.hasOwnProperty(language)) {
             if (passiveLangData[language].hasOwnProperty(text)) {
                 if(Object.keys(param).length == 0)

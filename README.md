@@ -198,18 +198,17 @@ Language.load('en', {
     }
 )
 
-const translated = Language.get('deliver_code',{'name':"John", 'code': 343923},'ar');
+let translated = Language.get('deliver_code', 'ar', {'name':"John", 'code': 343923});
 
 translated.then((text) => {
    console.log(text);
 });
 
-const translated = Language.get('deliver_code',{'name':"John", 'code': 343923},'en');
+translated = Language.get('deliver_code','en', {'name':"John", 'code': 343923});
 
 translated.then((text) => {
    console.log(text);
 });
-
 ```
 
 
