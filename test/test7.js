@@ -6,7 +6,7 @@ LangParser.setBaseDir(__dirname);
 
 translated =  LangParser.translate('success')
 
-translated.then((text) =>{
+translated.then((text) => {
    console.log(text);
 });
 
@@ -16,7 +16,7 @@ testTranslate = async (language, message) => {
 
    LangParser.setBaseDir(__dirname);
 
-    translated =  await LangParser.translate(message, {}, language)
+    translated =  await LangParser.translate(message, language)
 
     let data = {
         message: translated,

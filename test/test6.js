@@ -31,13 +31,13 @@ LangParser.loadLanguage('ar', {
    }
 )
 
-translated = LangParser.translate('deliver_code', {'name':"John", 'code': 343923}, 'ar' )
+translated = LangParser.translate('deliver_code', 'ar', {'name':"John", 'code': 343923} )
 
 translated.then((text) =>{
    console.log(text);
 });
 
-translated = LangParser.translate('deliver_code', {'name':"John", 'code': 343923}, 'en' )
+translated = LangParser.translate('deliver_code', 'en', {'name':"John", 'code': 343923} )
 
 translated.then((text) =>{
    console.log(text);

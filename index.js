@@ -93,13 +93,13 @@ class Language {
         return path.split('.').reduce((res, key) =>  this.gettext(res[key],{},language) || fallback, obj);
     }
 
-    async translate (text, param={}, language=false){
+    async translate (text, language=false, param={}){
         language = !language ? false : language;
         await this.init(language);
         return this.gettext(text, param, language);
     }
 
-    async get (text, param={}, language=false){
+    async get (text, language=false, param={}){
         return await this.translate(text, param, language);
     }
 

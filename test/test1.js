@@ -7,7 +7,7 @@ LangParser.setBaseDir(__dirname);
 
 LangParser.setActiveLang('en');
 
-translated = LangParser.get('deliver_code', {'name':"John", 'code': 343923} )
+translated = LangParser.get('deliver_code', 'en', {'name':"John", 'code': 343923} )
 
 translated.then((text) =>{
    console.log(text);

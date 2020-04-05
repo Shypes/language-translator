@@ -7,6 +7,6 @@ Language._({
 
 const translated = Language.get('something_went_wrong');
 
-translated.then((text) =>{
+translated.then((text) => {
    console.log(text);
 });

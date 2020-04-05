@@ -21,8 +21,8 @@ testTranslate = async (res, content, message) => {
         message = {};
     }
     responseData = {...responseData, ...message};
-    LangParser.setActiveLang(res.language);
-    let translated = await LangParser.translate(responseData['message'], responseData['param']);
+
+    let translated = await LangParser.get(responseData['message'], res.language, responseData['param']);
 
     lang_key = !res.lang_key ? false : true;
 

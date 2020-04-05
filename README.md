@@ -180,11 +180,11 @@ Output:
 
 ```js
 Language._({
-   default_lang : "ar",
+   default_lang : "en",
    __basedir : 'src/lang'
 })
 
-const translated = Language.get('something_went_wrong');
+const translated = Language.get('deliver_code',{'name':"John", 'code': 343923},'ar');
 
 translated.then((text) => {
    console.log(text);
