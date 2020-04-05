@@ -61,13 +61,9 @@ Create the different sample files below in the language folder
 const Language = require("@shypes/language-translator");
 ```
 
-
 ## New version features
 
 Simple usage from **version 2.0.1**
-
-
-
 
 **Version >= 2.0.1**
 
@@ -107,6 +103,9 @@ Lang.setLanguageDir('src/lang');
 
 // set your default language
 Lang.setDefaultLang('en');
+
+// set the extention for yout language file, default is .json
+Lang.setExtention(".txt");
 ```
 
 ## Translation begin here
@@ -122,7 +121,7 @@ Lang.setActiveLang('ar');
 
 translated = Lang.get('email_phone_validation')
 
-translated.then((text) =>{
+translated.then((text) => {
    console.log(text);
 });
 ```
@@ -134,7 +133,7 @@ translated.then((text) =>{
 
 translated = Language.get('email_phone_validation', 'ar')
 
-translated.then((text) =>{
+translated.then((text) => {
    console.log(text);
 });
 ```
@@ -144,9 +143,7 @@ translated.then((text) =>{
 ```js
 testTranslate = async (language, message) => {
 
-    Lang.setActiveLang(language);
-
-    translated =  await Lang.get(message)
+    translated =  await Language.get(message, language)
 
     let data = {
         message: translated,
@@ -163,34 +160,9 @@ testTranslate('en','missing_required_validation')
 testTranslate('ar','email_phone_validation')
 ```
 
-Other Optional Method
-
-```js
-// set the extention for yout language file, default is .json
-Lang.setExtention(".txt");
-```
-
 In line Langauge Loading Supported, this help you load your language data directly with a file
-**version 1.0.3**
 
-```js
-// Tell the application to not try and load from file, optiona
-
-Lang.setLoadFromFile(false);
-
-const data = {
-    "success": "نجاح",
-    "email_phone_validation": "لا يمكن أن يكون البريد الإلكتروني والهاتف فارغين",
-    "something_went_wrong": "هناك خطأ ما!",
-    "missing_required_validation": "الحقول المطلوبة مفقودة",
-    "missing_truck": "تم تعيين تجمع طلبات الشاحنات بالفعل على ${status}",
-    "deliver_code":"مرحبًا ${name} ، إليك رمز otp ${code}"
-}
-
-Lang.loadLanguage('ar', data);
-```
-
-**version 2.0.3**
+avaliable in  **version >= 2.0.3**
 
 ```js
 
@@ -231,9 +203,6 @@ Output:
 ```json
 مرحبًا John ، إليك رمز otp 343923
 ```
-
-
-
 
 Check out the [sample files](https://github.com/Shypes/language-translator/tree/master/examples) in the test directory
 
