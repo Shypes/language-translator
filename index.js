@@ -98,7 +98,6 @@ class Language {
     }
 
     async translate (text, language=false, param={}){
-        language = !language ? false : language;
         await this.init(language);
         return this.text(text, language, param);
     }
