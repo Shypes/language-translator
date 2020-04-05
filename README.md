@@ -60,7 +60,7 @@ Create the different sample files below in the language folder
 ```js
 const Language = require("@shypes/language-translator");
 
-const Lang = Language();
+const Lang = Language._();
 
 ```
 
