@@ -15,7 +15,7 @@ Language.load('en', {
     }
 )
 
-let translated = Language.get('deliver_code', 'ar', {'name':"John", 'code': 343923});
+translated = Language.get('deliver_code', 'ar', {'name':"John", 'code': 343923});
 
 translated.then((text) => {
    console.log(text);

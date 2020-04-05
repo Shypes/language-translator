@@ -5,7 +5,7 @@ Language._({
    __basedir : __dirname
 })
 
-const translated = Language.get('something_went_wrong');
+translated = Language.get('something_went_wrong');
 
 translated.then((text) => {
    console.log(text);
