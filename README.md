@@ -176,15 +176,35 @@ Output:
 مرحبًا John ، إليك رمز otp 343923
 ```
 
-##New version features
+## New version features
+
+Simple usage from **version 2.0.1**
 
 ```js
+const Language = require("@shypes/language-translator");
+
 Language._({
    default_lang : "en",
-   __basedir : 'src/lang'
+   __basedir : 'lang'
 })
 
+Language.load('ar', {
+    "deliver_code":"مرحبًا ${name} ، إليك رمز otp ${code}"
+    }
+)
+
+Language.load('en', {
+    "deliver_code":"Hello ${name}, here is your otp code ${code}"
+    }
+)
+
 const translated = Language.get('deliver_code',{'name':"John", 'code': 343923},'ar');
+
+translated.then((text) => {
+   console.log(text);
+});
+
+const translated = Language.get('deliver_code',{'name':"John", 'code': 343923},'en');
 
 translated.then((text) => {
    console.log(text);
