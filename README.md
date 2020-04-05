@@ -59,28 +59,31 @@ Create the different sample files below in the language folder
 
 ```js
 const Language = require("@shypes/language-translator");
+```
 
+if Version <= 1.2.3
+
+```js
+const Lang = Language();
+```
+
+if Version >= 2.0.0
+
+```js
 const Lang = Language._();
-
 ```
 
 ## Some Basic Configuration - Optional
 
 ```js
-
 // set your base directory
-
 Lang.setBaseDir("./"));
 
 // set your base directory
-
 Lang.setLanguageDir('src/lang');
 
 // set your default language
-
 Lang.setDefaultLang('en');
-
-
 ```
 
 ## Translation begin here
@@ -97,13 +100,11 @@ translated = Lang.get('email_phone_validation')
 translated.then((text) =>{
    console.log(text);
 });
-
 ```
 
 ## Using a function
 
 ```js
-
 testTranslate = async (language, message) => {
 
     Lang.setActiveLang(language);
@@ -118,29 +119,23 @@ testTranslate = async (language, message) => {
     console.log(data);
 };
 
-
 testTranslate('ar','something_went_wrong')
 
 testTranslate('en','missing_required_validation')
 
 testTranslate('ar','email_phone_validation')
-
 ```
 
 Other Optional Method
 
 ```js
-
 // set the extention for yout language file, default is .json
-
 Lang.setExtention(".txt");
-
 ```
 
 In line Langauge Loading Supported, this help you load your language data directly with a file
 
 ```js
-
 // Tell the application to not try and load from file, optiona
 
 Lang.setLoadFromFile(false);
@@ -155,13 +150,11 @@ const data = {
 }
 
 Lang.loadLanguage('ar', data);
-
 ```
 
 ## Dynamic language template
 
 It also support **templated** json strings
-
 
 ```json
 {
@@ -170,7 +163,6 @@ It also support **templated** json strings
 ```
 
 ```js
-
 translated = Lang.get('deliver_code', {'name':"John", 'code': 343923} )
 
 translated.then((text) =>{
@@ -181,8 +173,22 @@ translated.then((text) =>{
 Output:
 
 ```json
-
 مرحبًا John ، إليك رمز otp 343923
+```
+
+##New version features
+
+```js
+Language._({
+   default_lang : "ar",
+   __basedir : 'src/lang'
+})
+
+const translated = Language.get('something_went_wrong');
+
+translated.then((text) => {
+   console.log(text);
+});
 
 ```
 
