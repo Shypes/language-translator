@@ -1,7 +1,7 @@
 
 const Language = require('../');
 
-const LangParser = Language();
+const LangParser = Language._();
 
 LangParser.setBaseDir("./");
 

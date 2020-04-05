@@ -1,7 +1,7 @@
 
 const Language = require('../');
 
-const LangParser = Language();
+const LangParser = Language._();
 
 LangParser.setBaseDir(__dirname);
 
@@ -56,6 +56,6 @@ setTimeout(function(){
 
     testTranslate(res, {}, 'email_phone_validation')
 
-}, 1000)
+}, 10)
 
 

@@ -8,16 +8,25 @@ global.passiveLangData = {};
 
 class Language {
 
-    constructor() {
-        this.reset();
+    constructor(options) {
+        this.reset(options);
     }
 
-    reset (){
-        this.default_lang = "en"
-        this.__basedir = "./";
-        this.ext = ".json";
-        this.langFolder = 'lang';
-        this.active_lang = this.default_lang;
+    setOptions (options){
+        this.option = {
+            ...this.default, ...options
+        }
+    }
+
+    reset (options){
+        this.default = {
+            default_lang : "en",
+            __basedir : "./",
+            ext : ".json",
+            langFolder : 'lang',
+        }
+        this.setOptions(options);
+        this.active_lang = this.option['default_lang'];
         this.loaded = false;
         this.load_from_file = true;
         this.setPath();
@@ -29,7 +38,7 @@ class Language {
     }
 
     setExtention(ext){
-        this.ext = ext;
+        this.option['ext'] = ext;
     }
 
     setLoadFromFile(load){
@@ -37,56 +46,57 @@ class Language {
     }
 
     setBaseDir(directory){
-        this.__basedir = directory;
+        this.option['__basedir'] = directory;
         this.setPath();
     }
 
     setLanguageDir(directory){
-        this.langFolder = directory;
+        this.option['langFolder'] = directory;
         this.setPath();
     }
 
     setDefaultLang(language){
-        this.default_lang = language;
+        this.option['default_lang'] = language;
         this.loaded = false;
         defaultLangData = {};
     }
 
     setPath(){
-        this.langPath = path.join(this.__basedir, this.langFolder);
+        this.langPath = path.join(this.option['__basedir'], this.option['langFolder']);
     }
 
     getPath(){
         return this.langPath;
     }
 
-    gettext(text, param={}){
-        if (passiveLangData.hasOwnProperty(this.active_lang)) {
-            if (passiveLangData[this.active_lang].hasOwnProperty(text)) {
+    gettext(text, param={}, language = false){
+        language = language ? language : this.active_lang;
+        if (passiveLangData.hasOwnProperty(language)) {
+            if (passiveLangData[language].hasOwnProperty(text)) {
                 if(Object.keys(param).length == 0)
-                    return passiveLangData[this.active_lang][text];
+                    return passiveLangData[language][text];
                 else
-                    return this.renderString(passiveLangData[this.active_lang][text], param);
+                    return this.renderString(language, passiveLangData[language][text], param);
             }
         }
         return text;
     }
 
-    renderString(template, variables, fallback) {
+    renderString(language, template, variables, fallback) {
         return template.replace(/\${[^{]+}/g, (match) => {
             const path = match.slice(2, -1).trim();
-            return this.getObjPath(path, variables, fallback);
+            return this.getObjPath(language, path, variables, fallback);
         });
     }
     
-    getObjPath(path, obj, fallback = '') {
-        return path.split('.').reduce((res, key) =>  this.gettext(res[key]) || fallback, obj);
+    getObjPath(language, path, obj, fallback = '') {
+        return path.split('.').reduce((res, key) =>  this.gettext(res[key],{},language) || fallback, obj);
     }
 
     async translate (text, param={}, language=false){
         language = !language ? false : language;
         await this.init(language);
-        return this.gettext(text, param);
+        return this.gettext(text, param, language);
     }
 
     async get (text, param={}, language=false){
@@ -105,11 +115,11 @@ class Language {
         && this.loaded == false  
         && this.load_from_file){
             const file_path = this.getPath();
-            let isFile =  fs.existsSync(`${file_path}/${this.default_lang}${this.ext}`)
+            let isFile =  fs.existsSync(`${file_path}/${this.option['default_lang']}${this.option['ext']}`)
             if(isFile){
                 const readFile = promisify(fs.readFile);
                 try {
-                    defaultLangData = JSON.parse(await readFile(`${file_path}/${this.default_lang}${this.ext}`, 'utf8'));
+                    defaultLangData = JSON.parse(await readFile(`${file_path}/${this.option['default_lang']}${this.option['ext']}`, 'utf8'));
                 }catch (e) {
                     defaultLangData = {}
                 }
@@ -122,15 +132,15 @@ class Language {
         if (!activeLangData.hasOwnProperty(this.active_lang) 
         && this.load_from_file 
         && !passiveLangData.hasOwnProperty(this.active_lang)) {
-            if (this.default_lang == this.active_lang){
+            if (this.option['default_lang'] == this.active_lang){
                 activeLangData[this.active_lang] = defaultLangData;
             }else{
                 const file_path = this.getPath();
-                let isFile =  fs.existsSync(`${file_path}/${this.active_lang}${this.ext}`)
+                let isFile =  fs.existsSync(`${file_path}/${this.active_lang}${this.option['ext']}`)
                 if(isFile){
                     const readFile = promisify(fs.readFile);
                     try {
-                        activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}${this.ext}`, 'utf8'));
+                        activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}${this.option['ext']}`, 'utf8'));
                     }catch (e) {
                         activeLangData[this.active_lang] = {}
                     }
@@ -168,6 +178,24 @@ class Language {
 
 }
 
-module.exports = function languagetranslato(string) {
-    return new Language();
+// module.exports = function languagetranslato(options) {
+//     return new Language(options);
+// };
+
+global._SL = null;
+
+exports.getLang = getLang = (options) =>   {
+    if (_SL == null){
+        _SL = new Language(options);
+    }
+    return _SL;
+};
+
+exports._ = (options) => {
+    return getLang(options);
+};
+
+exports.get = async (text, param={}, language=false) => {
+    Lang = getLang();
+    return await Lang.get(text, {}, language)
 };

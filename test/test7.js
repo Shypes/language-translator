@@ -1,20 +1,18 @@
 const Language = require('../');
 
-const LangParser = Language();
+LangParser = Language._();
 
 LangParser.setBaseDir(__dirname);
 
-translated =  LangParser.translate('success', {}, 'ar')
-
+translated =  LangParser.translate('success')
 
 translated.then((text) =>{
    console.log(text);
 });
 
-
 testTranslate = async (language, message) => {
 
-   const LangParser = Language();
+   const LangParser = Language._();
 
    LangParser.setBaseDir(__dirname);
 
