@@ -2,13 +2,12 @@ const {promisify} = require('util');
 const path = require('path');
 const fs = require('fs');
 
-global.activeLangData = {};
-global.defaultLangData = {};
-global.passiveLangData = {};
 
 class Language {
 
     constructor(options) {
+        this.LanguageData = {};
+        this.FolerLanguage = {};  
         this.reset(options);
     }
 
@@ -53,6 +52,12 @@ class Language {
     setLanguageDir(directory){
         this.option['langFolder'] = directory;
         this.setPath();
+        this.init(false);
+
+        for (var language in this.FolerLanguage[this.option['langFolder']]){
+            data = this.FolerLanguage[this.option['langFolder']][language];
+            this.load(language, data);
+        }
     }
 
     setDefaultLang(language){
@@ -63,6 +68,9 @@ class Language {
 
     setPath(){
         this.langPath = path.join(this.option['__basedir'], this.option['langFolder']);
+        if (!this.FolerLanguage.hasOwnProperty(this.option['langFolder'])) {
+            this.FolerLanguage[this.option['langFolder']] = {};
+        }
     }
 
     getPath(){
@@ -71,12 +79,12 @@ class Language {
 
     text(text, language = false,  param={}){
         language = (language && language != '' && typeof language == 'string')  ? language : this.active_lang;
-        if (passiveLangData.hasOwnProperty(language)) {
-            if (passiveLangData[language].hasOwnProperty(text)) {
+        if (this.LanguageData.hasOwnProperty(language)) {
+            if (this.LanguageData[language].hasOwnProperty(text)) {
                 if(Object.keys(param).length == 0)
-                    return passiveLangData[language][text];
+                    return this.LanguageData[language][text];
                 else
-                    return this.renderString(language, passiveLangData[language][text], param);
+                    return this.renderString(language, this.LanguageData[language][text], param);
             }
         }
         return text;
@@ -110,79 +118,83 @@ class Language {
         this.setActiveLang(language);
         await this.loadDefaultLang();
         await this.loadActiveLang();
-        await this.loadPassiveLang();
     }
 
     async loadDefaultLang(){
-        if(Object.keys(defaultLangData).length == 0 
-        && this.loaded == false  
-        && this.load_from_file){
-            const file_path = this.getPath();
-            let isFile =  fs.existsSync(`${file_path}/${this.option['default_lang']}${this.option['ext']}`)
-            if(isFile){
-                const readFile = promisify(fs.readFile);
-                try {
-                    defaultLangData = JSON.parse(await readFile(`${file_path}/${this.option['default_lang']}${this.option['ext']}`, 'utf8'));
-                }catch (e) {
-                    defaultLangData = {}
-                }
-            }
+        if(this.loaded == false){
+            await this.loadLanguage(this.option['default_lang']);
         }
         this.loaded = true;
     }
 
     async loadActiveLang(){
-        if (!activeLangData.hasOwnProperty(this.active_lang) 
-        && this.load_from_file 
-        && !passiveLangData.hasOwnProperty(this.active_lang)) {
-            if (this.option['default_lang'] == this.active_lang){
-                activeLangData[this.active_lang] = defaultLangData;
-            }else{
-                const file_path = this.getPath();
-                let isFile =  fs.existsSync(`${file_path}/${this.active_lang}${this.option['ext']}`)
-                if(isFile){
-                    const readFile = promisify(fs.readFile);
-                    try {
-                        activeLangData[this.active_lang] = JSON.parse(await readFile(`${file_path}/${this.active_lang}${this.option['ext']}`, 'utf8'));
-                    }catch (e) {
-                        activeLangData[this.active_lang] = {}
-                    }
-                }else{
-                    activeLangData[this.active_lang] = {}
-                }
-            }      
+        await this.loadLanguage(this.active_lang);
+    }
+
+    hasLoadedLanguage(language){
+        return this.FolerLanguage[this.option['langFolder']].hasOwnProperty(language);
+    }
+
+    canLoad(language){
+        const file_path = this.getPath();
+        return fs.existsSync(`${file_path}/${language}${this.option['ext']}`)
+    }
+
+    markAsLoaded(language){
+        this.loadFolderLanguage(language);
+    }
+
+    loadFolderLanguage(language, data={}){
+        if(typeof data === 'object'){
+            this.setPath();
+            this.FolerLanguage[this.option['langFolder']][language] = data;
         }
     }
 
-    async loadPassiveLang(){
-        if (!passiveLangData.hasOwnProperty(this.active_lang)) {
-            passiveLangData[this.active_lang] = {
-                ...defaultLangData
-            };
-            if (activeLangData.hasOwnProperty(this.active_lang)) {
-                passiveLangData[this.active_lang] = {
-                    ...passiveLangData[this.active_lang],
-                    ...activeLangData[this.active_lang]
-                };
+   getFolderLanguage(language){
+        if (this.FolerLanguage.hasOwnProperty(this.option['langFolder'])) {
+            if (this.FolerLanguage[this.option['langFolder']].hasOwnProperty(language)) {
+                return this.FolerLanguage[this.option['langFolder']][language];
+            }
+        }
+        return {};
+    }
+
+    async getFile(language){
+         try {
+            const readFile = promisify(fs.readFile);
+            const file_path = this.getPath();
+            return JSON.parse(await readFile(`${file_path}/${language}${this.option['ext']}`, 'utf8'));
+        }catch (e) {
+            return {};
+        }
+    }
+
+    async loadLanguage(language){
+        if (this.load_from_file 
+        && !this.hasLoadedLanguage(language)
+        ) {
+            if(this.canLoad(language)){ 
+                this.loadFolderLanguage(language, await this.getFile(language));
+                this.load(language, this.getFolderLanguage(language));
+            }else{
+                this.markAsLoaded(language);
             }
         }
     }
 
     load(language, data){
-        if (!passiveLangData.hasOwnProperty(language)) {
-            passiveLangData[language] = data;
-        }else{
-            passiveLangData[language] = {
-                ...passiveLangData[language],
-                ...data
-            };
+        if( typeof data === 'object' && Object.keys(data).length > 0){
+            if (!this.LanguageData.hasOwnProperty(language)) {
+                this.LanguageData[language] = data;
+            }else{
+                this.LanguageData[language] = {
+                    ...this.LanguageData[language],
+                    ...data
+                };
+            }
         }
     }
-
-    loadLanguage(language, data){
-        return this.load(language, data);
-    }
-
 }
 
 global._SL = null;
