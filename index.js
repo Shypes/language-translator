@@ -49,7 +49,7 @@ class Language {
         this.setPath();
     }
 
-    async setlanguageDir(directory){
+    async setLanguageDir(directory){
         this.option['langFolder'] = directory;
         this.setPath();
         await this.init(false);
@@ -235,7 +235,7 @@ exports.getPath = () => {
     return Lang.getPath();
 };
 
-exports.setlanguageDir = async (directory) => {
+exports.setLanguageDir = async (directory) => {
     Lang = getLang();
-    return await Lang.setlanguageDir (directory);
+    return await Lang.setLanguageDir (directory);
 };

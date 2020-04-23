@@ -30,7 +30,7 @@ async function run(){
 
     Language.setLoadFromFile(true);
 
-    await Language.setlanguageDir("lang/email");
+    await Language.setLanguageDir("lang/email");
 
     console.log(Language.getPath());
 
@@ -42,7 +42,7 @@ async function run(){
 
     console.log(translated);
 
-    await Language.setlanguageDir("lang");
+    await Language.setLanguageDir("lang");
 
     console.log(Language.getPath());
 
@@ -54,7 +54,7 @@ async function run(){
 
     console.log(translated);
 
-    await Language.setlanguageDir("lang/email");
+    await Language.setLanguageDir("lang/email");
 
     console.log(Language.getPath());
 
@@ -84,7 +84,7 @@ async function run(){
 
     console.log(translated);
 
-    await Language.setlanguageDir("lang");
+    await Language.setLanguageDir("lang");
 
     console.log(Language.getPath());
 
@@ -96,7 +96,7 @@ async function run(){
 
     console.log(translated);
 
-    await Language.setlanguageDir("lang/email");
+    await Language.setLanguageDir("lang/email");
 
     console.log(Language.getPath());
 
