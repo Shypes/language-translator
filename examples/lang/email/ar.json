@@ -1,0 +1,4 @@
+{
+    "deliver_code":"heyمرحبًا ${name} ، إليك رمز email ${code}",
+    "deliver_code_me":"loveمرحبًا ${name} ، إليك رمز email ${code}"
+}

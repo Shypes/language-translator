@@ -2,7 +2,7 @@ const Language = require('../');
 
 Language._({
    default_lang : "en",
-   __basedir : 'lang'
+   __basedir : __dirname
 })
 
 Language.load('ar', {

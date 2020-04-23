@@ -49,13 +49,12 @@ class Language {
         this.setPath();
     }
 
-    setLanguageDir(directory){
+    async setlanguageDir(directory){
         this.option['langFolder'] = directory;
         this.setPath();
-        this.init(false);
-
+        await this.init(false);
         for (var language in this.FolerLanguage[this.option['langFolder']]){
-            data = this.FolerLanguage[this.option['langFolder']][language];
+            let data = this.FolerLanguage[this.option['langFolder']][language];
             this.load(language, data);
         }
     }
@@ -223,5 +222,20 @@ exports.text = (text, language=false, param={}) => {
 exports.load = async (language, data) => {
     Lang = getLang();
     await Lang.init (language);
-    Lang.load(language, data)
+    return Lang.load(language, data)
+};
+
+exports.setLoadFromFile = (load) => {
+    Lang = getLang();
+    return Lang.setLoadFromFile (load);
+};
+
+exports.getPath = () => {
+    Lang = getLang();
+    return Lang.getPath();
+};
+
+exports.setlanguageDir = async (directory) => {
+    Lang = getLang();
+    return await Lang.setlanguageDir (directory);
 };

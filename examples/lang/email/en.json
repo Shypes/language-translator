@@ -1,0 +1,4 @@
+{
+    "deliver_code":"hey ${name}, here is your otp code ${code}",
+    "deliver_code_me":"love ${name}, here is your otp code ${code}"
+}
