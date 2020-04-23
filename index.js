@@ -51,7 +51,6 @@ class Language {
 
     async setLanguageDir(directory){
         if (this.option['langFolder'] != directory){
-            console.log('hi');
             this.option['langFolder'] = directory;
             this.setPath();
             await this.init(false);
