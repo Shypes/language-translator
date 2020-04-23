@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This is a simple light weight langusge parse to help with language key translation built for speed using in-memory caching optimization technique.
+This is a simple light weight language parser to help with language key translations, built for speed using in-memory caching optimization technique.
 
 Language file only get loaded once during your application life cycle
 
