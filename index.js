@@ -50,7 +50,7 @@ class Language {
     }
 
     async setLanguageDir(directory){
-        // if (this.option['langFolder'] != directory){
+        if (this.option['langFolder'] != directory){
             this.option['langFolder'] = directory;
             this.setPath();
             await this.init(this.active_lang);
@@ -58,7 +58,7 @@ class Language {
                 let data = this.FolderLanguage[this.option['langFolder']][language];
                 this.load(language, data);
             }
-        // }
+        }
     }
 
     setDefaultLang(language){
@@ -146,7 +146,7 @@ class Language {
     }
 
     loadFolderLanguage(language, data={}){
-        if(typeof data === 'object' && Object.keys(data).length > 0){
+        if(typeof data === 'object'){
             this.setPath();
             this.FolderLanguage[this.option['langFolder']][language] = data;
         }
@@ -162,11 +162,12 @@ class Language {
     }
 
     async getFile(language){
-         try {
-            const readFile = promisify(fs.readFile);
-            const file_path = this.getPath();
+        const readFile = promisify(fs.readFile);
+        const file_path = this.getPath();
+        try {
             return JSON.parse(await readFile(`${file_path}/${language}${this.option['ext']}`, 'utf8'));
         }catch (e) {
+            console.log("error load language file", `${file_path}/${language}${this.option['ext']}`);
             return {};
         }
     }
