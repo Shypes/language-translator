@@ -50,7 +50,7 @@ class Language {
     }
 
     async setLanguageDir(directory){
-        if (this.option['langFolder'] != directory){
+        // if (this.option['langFolder'] != directory){
             this.option['langFolder'] = directory;
             this.setPath();
             await this.init(false);
@@ -58,7 +58,7 @@ class Language {
                 let data = this.FolerLanguage[this.option['langFolder']][language];
                 this.load(language, data);
             }
-        }
+        // }
     }
 
     setDefaultLang(language){
