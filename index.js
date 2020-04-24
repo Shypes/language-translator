@@ -7,7 +7,7 @@ class Language {
 
     constructor(options) {
         this.LanguageData = {};
-        this.FolerLanguage = {};  
+        this.FolderLanguage = {};  
         this.reset(options);
     }
 
@@ -53,9 +53,9 @@ class Language {
         // if (this.option['langFolder'] != directory){
             this.option['langFolder'] = directory;
             this.setPath();
-            await this.init(false);
-            for (var language in this.FolerLanguage[this.option['langFolder']]){
-                let data = this.FolerLanguage[this.option['langFolder']][language];
+            await this.init(this.active_lang);
+            for (var language in this.FolderLanguage[this.option['langFolder']]){
+                let data = this.FolderLanguage[this.option['langFolder']][language];
                 this.load(language, data);
             }
         // }
@@ -69,8 +69,8 @@ class Language {
 
     setPath(){
         this.langPath = path.join(this.option['__basedir'], this.option['langFolder']);
-        if (!this.FolerLanguage.hasOwnProperty(this.option['langFolder'])) {
-            this.FolerLanguage[this.option['langFolder']] = {};
+        if (!this.FolderLanguage.hasOwnProperty(this.option['langFolder'])) {
+            this.FolderLanguage[this.option['langFolder']] = {};
         }
     }
 
@@ -133,7 +133,7 @@ class Language {
     }
 
     hasLoadedLanguage(language){
-        return this.FolerLanguage[this.option['langFolder']].hasOwnProperty(language);
+        return this.FolderLanguage[this.option['langFolder']].hasOwnProperty(language);
     }
 
     canLoad(language){
@@ -146,16 +146,16 @@ class Language {
     }
 
     loadFolderLanguage(language, data={}){
-        if(typeof data === 'object'){
+        if(typeof data === 'object' && Object.keys(data).length > 0){
             this.setPath();
-            this.FolerLanguage[this.option['langFolder']][language] = data;
+            this.FolderLanguage[this.option['langFolder']][language] = data;
         }
     }
 
    getFolderLanguage(language){
-        if (this.FolerLanguage.hasOwnProperty(this.option['langFolder'])) {
-            if (this.FolerLanguage[this.option['langFolder']].hasOwnProperty(language)) {
-                return this.FolerLanguage[this.option['langFolder']][language];
+        if (this.FolderLanguage.hasOwnProperty(this.option['langFolder'])) {
+            if (this.FolderLanguage[this.option['langFolder']].hasOwnProperty(language)) {
+                return this.FolderLanguage[this.option['langFolder']][language];
             }
         }
         return {};
