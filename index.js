@@ -237,6 +237,12 @@ exports.getPath = () => {
     return Lang.getPath();
 };
 
+exports.setActiveLang = (language) => {
+    Lang = getLang();
+    return Lang.setActiveLang(language);
+};
+
+
 exports.setLanguageDir = async (directory) => {
     Lang = getLang();
     return await Lang.setLanguageDir (directory);
