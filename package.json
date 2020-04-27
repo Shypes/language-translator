@@ -29,9 +29,9 @@
     "shypes"
   ],
   "bugs": {
-    "url": "https://github.com/shypes/languagetranslator/issues"
+    "url": "https://github.com/Shypes/language-translator/issues"
   },
-  "homepage": "https://github.com/shypes/languagetranslator#readme",
+  "homepage": "https://github.com/Shypes/language-translator#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -204,6 +204,26 @@ Output:
 مرحبًا John ، إليك رمز otp 343923
 ```
 
+## Switch between Language Folder
+
+```js
+await Language.setLanguageDir("lang/sms");
+
+console.log(Language.getPath());
+
+translated = await Language.get('deliver_code','ar', {'name':"John", 'code': 343923});
+
+console.log(translated);
+
+await Language.setLanguageDir("lang/email");
+
+console.log(Language.getPath());
+
+translated = await Language.get('deliver_code','ar', {'name':"John", 'code': 343923});
+
+console.log(translated);
+```
+
 Check out the [sample files](https://github.com/Shypes/language-translator/tree/master/examples) in the test directory
 
 ## License
