@@ -167,6 +167,7 @@ class Language {
         try {
             return JSON.parse(await readFile(`${file_path}/${language}${this.option['ext']}`, 'utf8'));
         }catch (e) {
+            console.log(e);
             console.log("error load language file", `${file_path}/${language}${this.option['ext']}`);
             return {};
         }
